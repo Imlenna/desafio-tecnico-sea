@@ -3,15 +3,15 @@
 Este reposítorio contém um teste automatizado de interface utilizando o framework de automação Cypress para validar a página de Formulario de funcionario (https://analista-teste.seatecnologia.com.br/) para a vaga de Analista de Testes. 
 
 # :mag_right: O que será testado via automação
-    - Formulario de inserção de funcionarios e EPI
-    - Botões da página principal
-    - Teste de Segurança
-    - Resoluções que o site funciona
+- Formulario de inserção de funcionarios e EPI
+- Botões da página principal
+- Teste de Segurança
+- Resoluções que o site funciona
 
 # :books: Tecnologias usadas
-    - (https://img.shields.io/badge/-cypress-%23E5E5E5?logo=cypress&logoColor=058a5e)
-    - (https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
-    - (https://shields.io/badge/-javascript-4377cb?logo=javascript)
+- ![image](https://img.shields.io/badge/-cypress-%23E5E5E5?logo=cypress&logoColor=058a5e)
+- ![image](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+- ![image](https://shields.io/badge/-javascript-4377cb?logo=javascript)
     
 # :open_file_folder: Como instalar?
 Primeiro, clone o repositório para seu ambiente:
