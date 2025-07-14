@@ -28,9 +28,11 @@ Instala todas as dependências
 > yarn install or npm install
 ```
 # :arrows_counterclockwise: Como executar os testes?
-Executar os testes:
+Executar os testes (padrão cypress, chrome, firefox):
 ```bash
 > npx cypress run
+> npx cypress run --browser chrome
+> npx cypress run --browser firefox
 ```
 Visualizar a execução no navegador
 ```bash
