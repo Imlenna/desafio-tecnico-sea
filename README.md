@@ -9,9 +9,10 @@ Este reposítorio contém um teste automatizado de interface utilizando o framew
 - Resoluções que o site funciona
 
 # :books: Tecnologias usadas
-- ![image](https://img.shields.io/badge/-cypress-%23E5E5E5?logo=cypress&logoColor=058a5e)
+- ![image](https://img.shields.io/badge/-cypress-%23E5E5E5?style=for-the-badge&logo=cypress&logoColor=058a5e)
 - ![image](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
-- ![image]((https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E))
+- ![image](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white)
+    
     
 # :open_file_folder: Como instalar?
 Primeiro, clone o repositório para seu ambiente:
