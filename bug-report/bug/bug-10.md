@@ -1,7 +1,7 @@
-Bug 010  - Ao inserir dados de xss nos campos do formulario está sendo aceito
+Bug 010  - Ao inserir dados de script nos campos do formulario está sendo aceito
 
 **Descrição:**  
-Ao preencher o campo de com valores de script a aplicação está aceitando os valores e salvando
+Ao preencher o campo de com valores de script/tags html a aplicação está aceitando os valores e salvando
 
 **Passos para reproduzir:**  
 1. acessar o site
@@ -10,7 +10,7 @@ Ao preencher o campo de com valores de script a aplicação está aceitando os v
 4. clicar no botão salvar
 
 **Resultado esperado:**  
-O site exibir um erro caso o usuário insira as informações de risco a segurança da aplicação
+É esperado que o backend implemente validação ou sanitização para evitar riscos em outros contextos.
 
 **Resultado atual:**  
 As informações são salvas no banco de dados incorretamente

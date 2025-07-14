@@ -46,6 +46,139 @@ describe('Executa teste de acesso', () => {
 
 });
 
+describe('Testes de segurança e resolução', () => {
+  beforeEach(() => {
+    cy.visit(url.site)
+  })
+
+  it('Insere html no campo de input', () => {
+    const teste = '<script>alert("teste")</script>';
+    formulario.getAddButton()
+    formulario.getName().type(teste)
+    formulario.getSelecionarSexo(funcionarios.funcionarioPadrao.sexo)
+    formulario.getCPF().type(funcionarios.funcionarioPadrao.cpf)
+    formulario.getRG().type(funcionarios.funcionarioPadrao.rg)
+    formulario.getBirthday().type(funcionarios.funcionarioPadrao.data)
+    formulario.getCargoDropdown()
+    formulario.openCargoDropdown()
+    formulario.selectCargoOption(funcionarios.funcionarioPadrao.cargo)
+    formulario.getNumeroCa().type(epifuncionarios.funcionarioPadrao.ca)
+    formulario.getSalvarButton().click()
+    cy.get('span').contains('Sea Teste').should('be.visible');
+
+    cy.get('.c-bXqUbA > span').then($spans => {
+      for (let i = 0; i < $spans.length; i++) {
+        if ($spans[i].textContent === teste) {
+          throw new Error('O banco de dados não deveria salvar tags HTML sem filtro');
+        }
+      }
+    });
+
+  })
+
+  it('Insere caracteres especiais no campo de input', () => {
+    const fuzzy = `{}[]\\/'"\`$&;()|\n\r\t\u0000\u200B\u200C\u200D\uFEFF>`;
+    formulario.getAddButton()
+    formulario.getName().type(fuzzy)
+    cy.get('.c-bXqUbA > span').then($spans => {
+      for (let i = 0; i < $spans.length; i++) {
+        if ($spans[i].textContent === fuzzy) {
+          throw new Error('O banco de dados não deveria salvar caracteres que ofereçam risco ao sistema');
+        }
+      }
+    });
+
+  })
+
+  it('Insere valores numericos no campo de nome', () => {
+    const numerico = '1231231244124'
+    formulario.getAddButton()
+    formulario.getName().type(numerico)
+    formulario.getSelecionarSexo(funcionarios.funcionarioPadrao.sexo)
+    formulario.getCPF().type(funcionarios.funcionarioPadrao.cpf)
+    formulario.getRG().type(funcionarios.funcionarioPadrao.rg)
+    formulario.getBirthday().type(funcionarios.funcionarioPadrao.data)
+    formulario.getCargoDropdown()
+    formulario.openCargoDropdown()
+    formulario.selectCargoOption(funcionarios.funcionarioPadrao.cargo)
+    formulario.getNumeroCa().type(epifuncionarios.funcionarioPadrao.ca)
+    formulario.getSalvarButton().click()
+    cy.get('span').contains('Sea Teste').should('be.visible');
+    cy.get('.c-bXqUbA > span').then($spans => {
+      for (let i = 0; i < $spans.length; i++) {
+        if ($spans[i].textContent === numerico) {
+          throw new Error('O banco de dados não deveria numeros no campo de nome');
+        }
+      }
+    });
+  })
+
+  it('Insere valores string no campo de cpf', () => {
+    const caracteres = 'abcdfghijkl'
+    formulario.getAddButton()
+    formulario.getName().type(funcionarios.funcionarioPadrao.name)
+    formulario.getSelecionarSexo(funcionarios.funcionarioPadrao.sexo)
+    formulario.getCPF().type(caracteres)
+    formulario.getRG().type(funcionarios.funcionarioPadrao.rg)
+    formulario.getBirthday().type(funcionarios.funcionarioPadrao.data)
+    formulario.getCargoDropdown()
+    formulario.openCargoDropdown()
+    formulario.selectCargoOption(funcionarios.funcionarioPadrao.cargo)
+    formulario.getNumeroCa().type(epifuncionarios.funcionarioPadrao.ca)
+    formulario.getSalvarButton().click()
+    cy.get('span').contains('Sea Teste').should('be.visible');
+    cy.get('.c-bXqUbA').each(($card) => {
+      const nome = $card.find('span').text().trim(); // pega o nome correto
+      const cpf = $card.find('.c-cwYURa > .c-iYbcAK').eq(0).text().trim(); // pega o CPF (primeiro campo)
+      if (cpf === caracteres) {
+        throw new Error(`O CPF do funcionário "${nome}" foi salvo como "${cpf}", mas isso é um nome inválido!`);
+      }
+    });
+  })
+
+  it('Teste Resolução Padrão pagina inicial', () => {
+    cy.viewport(1920, 1080)
+    cy.get('.c-gJFkWm')
+      .children()
+      .filter(':visible')
+      .should('have.length.at.most', 4);
+    cy.get('.c-gJFkWm > :nth-child(6)').should('not.be.visible');
+  })
+
+  it('Teste Resolução Padrão do formulario', () => {
+    cy.viewport(1920, 1080)
+    formulario.getAddButton()
+    cy.get('.c-jQtxMc')
+      .should('have.css', 'width', '1032px')
+      .should('have.css', 'height', '732px')
+    cy.get('.descriptionSpan')
+      .should('have.css', 'width', '460px')
+      .should('have.css', 'height', '439px')
+  })
+
+  it('Teste Resolução IOS pagina principal', () => {
+    cy.viewport('macbook-16')
+    cy.get('.c-gJFkWm')
+      .children()
+      .filter(':visible')
+      .should('have.length.at.most', 4);
+    cy.get('.c-gJFkWm > :nth-child(6)').should('not.be.visible');
+  })
+
+  it('Teste Resolução Tablet formulario', () => {
+    cy.viewport('macbook-16')
+    formulario.getAddButton()
+    cy.get('.c-jQtxMc')
+      .should('have.css', 'width', '762px')
+      .should('have.css', 'height', '754px')
+    cy.get('.descriptionSpan')
+      .should('have.css', 'width', '460px')
+      .should('have.css', 'height', '439px')
+  })
+});
+
+
+
 describe('Cadastra funcionario', () => {
   beforeEach(() => {
     cy.visit(url.site)
@@ -68,7 +201,7 @@ describe('Cadastra funcionario', () => {
     formulario.getSelecioneEpi(epifuncionarios.funcionarioPadrao.epi)
     formulario.getNumeroCa().type(epifuncionarios.funcionarioPadrao.ca)
     formulario.getAddEPI()
-    cy.contains('Salvar').click()
+    formulario.getSalvarButton().click()
   });
 
   it('Insere um funcionario sem epi', () => {
@@ -85,7 +218,7 @@ describe('Cadastra funcionario', () => {
     formulario.getAtividadeDropdown()
     formulario.openAtividadeDropdown()
     cy.contains('O trabalhador não usa EPI.').click()
-    cy.contains('Salvar').click()
+    formulario.getSalvarButton().click()
   });
 
   it('Insere um funcionario que tem dados incorretos', () => {
@@ -109,7 +242,7 @@ describe('Cadastra funcionario', () => {
     formulario.getSelecioneEpi(epifuncionarios.funcionarioDadosInvalidos.epi)
     formulario.getNumeroCa().type(epifuncionarios.funcionarioDadosInvalidos.ca)
     formulario.getAddEPI()
-    cy.contains('Salvar').click()
+    formulario.getSalvarButton().click()
   });
 
   it('Testa botão de Adicionar atividade', () => {
