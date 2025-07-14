@@ -14,29 +14,31 @@ Este reposítorio contém um teste automatizado de interface utilizando o framew
     - (https://shields.io/badge/-javascript-4377cb?logo=javascript)
     
 # :open_file_folder: Como instalar?
-    Primeiro, clone o repositório para seu ambiente:
+Primeiro, clone o repositório para seu ambiente:
 ```bash
 git clone https://github.com/Imlenna/desafio-tecnico-sea.git
 ```
-    Depois, entre no repositório clonado e no diretório correspondente ao que quer testar. Logo após, insira os seguintes comandos no seu terminal para rodar:
+Depois, entre no repositório clonado e no diretório correspondente ao que quer testar. Logo após, insira os seguintes comandos no seu terminal para rodar:
 ```bash    
 cd desafio-tecnico-sea
 ```
-    Instala todas as dependências
+Instala todas as dependências
 ```bash
 > yarn install or npm install
 ```
 # :arrows_counterclockwise: Como executar os testes?
-    Executar os testes:
+Executar os testes:
 ```bash
 > npx cypress run
 ```
-    Visualizar a execução no navegador
+Visualizar a execução no navegador
 ```bash
 >npx cypress open
 ```
 ## Visualização do relatório após a execução:
+
 > ./relatiorios/screenshots
+
 > ./relatiorios/videos
 
 
